@@ -116,10 +116,16 @@ li{
 }
 
 .dropdown {
-	background-color: #24292e;
+	background-color: #14171a;;
 	width: 100%;
     position: relative;
     display: inline-block;
+}
+
+.dropdown ul{
+	overflow: hidden;
+	height: 0;
+	transition: height 1s ease-in-out;
 }
 
 .dropdown-content {
@@ -127,16 +133,10 @@ li{
 	font-size: 14px;
 	padding-left: 20px;
 	line-height: 40px;
-    display: none;
     position: relative;
-    background-color: #323b43;
+    background-color: #24292e;
     min-width: 130px;
     box-shadow: 0px 10px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
 }
 
 .dropdown:hover{
