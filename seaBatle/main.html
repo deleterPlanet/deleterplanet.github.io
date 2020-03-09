@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>sea battle</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+
+	<table id = "myField">
+		<tr>
+			<td></td>
+			<td>А</td>
+			<td>Б</td>
+			<td>В</td>
+			<td>Г</td>
+			<td>Д</td>
+			<td>Е</td>
+			<td>Ж</td>
+			<td>З</td>
+			<td>И</td>
+			<td>К</td>
+		</tr>
+	</table>
+	<table id = "enemyField">
+		<tr>
+			<td></td>
+			<td>А</td>
+			<td>Б</td>
+			<td>В</td>
+			<td>Г</td>
+			<td>Д</td>
+			<td>Е</td>
+			<td>Ж</td>
+			<td>З</td>
+			<td>И</td>
+			<td>К</td>
+		</tr>
+	</table>
+
+	<ul id = "option">
+		<li><h1>0 : 0</h1></li>
+		<li><button class = "optionBut" id = "addGame">Создать игру</button></li>
+		<li><button class = "optionBut" id = "conectionGame">Присоединиться</button></li>
+		<li>
+			<ul id = "optionShipList">
+				<li><button class = "optionBut">Растановка</button></li>
+				<li>
+					<ul>
+						<li data-Num = "0" class = "shipListItem">
+							<input type="text">
+							<input type="text">
+							<input type="text">
+							<input type="text">
+							<button class = "okBut">V</button>
+							<button class = "cleanBut">Очистить</button>
+						</li>
+						<li data-Num = "0" class = "shipListItem">
+							<input type="text">
+							<input type="text">
+							<input type="text">
+							<button class = "okBut">V</button>
+							<button class = "cleanBut">Очистить</button>
+						</li>
+						<li data-Num = "1" class = "shipListItem">
+							<input type="text">
+							<input type="text">
+							<input type="text">
+							<button class = "okBut">V</button>
+							<button class = "cleanBut">Очистить</button>
+						</li>
+						<li data-Num = "0" class = "shipListItem">
+							<input type="text">
+							<input type="text">
+							<button class = "okBut">V</button>
+							<button class = "cleanBut">Очистить</button>
+						</li>
+						<li data-Num = "1" class = "shipListItem">
+							<input type="text">
+							<input type="text">
+							<button class = "okBut">V</button>
+							<button class = "cleanBut">Очистить</button>
+						</li>
+						<li data-Num = "2" class = "shipListItem">
+							<input type="text">
+							<input type="text">
+							<button class = "okBut">V</button>
+							<button class = "cleanBut">Очистить</button>
+						</li>
+						<li data-Num = "0" class = "shipListItem">
+							<input type="text">
+							<button class = "okBut">V</button>
+							<button class = "cleanBut">Очистить</button>
+						</li>
+						<li data-Num = "1" class = "shipListItem">
+							<input type="text">
+							<button class = "okBut">V</button>
+							<button class = "cleanBut">Очистить</button>
+						</li>
+						<li data-Num = "2" class = "shipListItem">
+							<input type="text">
+							<button class = "okBut">V</button>
+							<button class = "cleanBut">Очистить</button>
+						</li>
+						<li data-Num = "3" class = "shipListItem">
+							<input type="text">
+							<button class = "okBut">V</button>
+							<button class = "cleanBut">Очистить</button>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>	
+
+	<script src = "beforeGame.js"></script>
+	<script src="game.js"></script>
+
+</body>
+</html>
