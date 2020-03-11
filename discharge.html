@@ -10,11 +10,12 @@
 
 		button{
 			position: fixed;
-			top: 50%;
-			left: 50%;
+			top: 40%;
+			left: 40%;
 			color: white;
-			width: 100px;
-			line-height: 20px;
+			width: 300px;
+			line-height: 60px;
+			font-size: 30px;
 			border: 2px solid white;
 			background-color: #000000;
 		}
@@ -42,6 +43,7 @@
 			mx = e.x;
 			my = e.y;
 			k = 0;
+			alert(mx + "  " + my);
 			idInterval = setInterval(loop, 1000/60);
 		}
 
