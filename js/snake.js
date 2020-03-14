@@ -1,223 +1,174 @@
-var
-  canv = document.getElementById('mc'), // canvas
-  ctx = canv.getContext('2d'), // 2d context
-  gs = fkp = false, // game started && first key pressed (initialization states)
-  speed = baseSpeed = 3, // snake movement speed
-  xv = yv = 0, // velocity (x & y)
-  px = ~~(canv.width) / 2, // player X position
-  py = ~~(canv.height) / 2, // player Y position
-  pw = ph = 20, // player size
-  aw = ah = 20, // apple size
-  apples = [], // apples list
-  trail = [], // tail elements list (aka trail)
-  tail = 100, // tail size (1 for 10)
-  tailSafeZone = 20, // self eating protection for head zone (aka safeZone)
-  cooldown = false, // is key in cooldown mode
-  score = 0, // current score
-  H1score = document.getElementById("Hscore"),
-  H1hiscore = document.getElementById("H1hiscore");
-  hiscore = 0;
+var canvas = document.getElementById('canvas'),
+	ctx = canvas.getContext('2d'),
+	gs = fkp = false,
+	speed = baseSpeed = 3,
+	xv = yv = 0,
+	px = ~~(canvas.width)/2,
+	py = ~~(canvas.height)/2,
+	pw = ph = 20,
+	aw = ah = 20,
+	trail = [],
+	tail = 10,
+	tailSafeZone = 20,
+	cooldown = false,
+	score = 0,
+	H1score = document.getElementById("Hscore"),
+	H1hiscore = document.getElementById("H1hiscore"),
+	hiscore = 0,
+	apple = {};
 
-window.onload = function() {
-  if (localStorage.getItem('HiscoreSnake') != null){
-    hiscore = localStorage.getItem('HiscoreSnake');
-  };
-  H1hiscore.innerHTML = "Hiscore: " + hiscore;
-  H1score.innerHTML = "Score: 0";
-  document.addEventListener('keydown', changeDirection);
-  setInterval(loop, 1000/60); // 60 FPS
-}     
+window.onload = function(){
+	checkWindow();
+	if (localStorage.getItem('HiscoreSnake') != null){
+	    hiscore = localStorage.getItem('HiscoreSnake');
+	};
+	H1hiscore.innerHTML = "Hiscore: " + hiscore;
+	H1score.innerHTML = "Score: 0";
+	document.addEventListener('keydown', changeDirection);
 
-// game main loop
-function loop()
-{
-  // logic
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0, 0, canv.width, canv.height);
-
-  // force speed
-  px += xv;
-  py += yv;
-
-  // teleports
-  if( px > canv.width )
-    {px = 0;}
-
-  if( px + pw < 0 )
-    {px = canv.width;}
-
-  if( py + ph < 0 )
-    {py = canv.height;}
-
-  if( py > canv.height )
-    {py = 0;}
-
-  // paint the snake itself with the tail elements
-  ctx.fillStyle = 'lime';
-  for( var i = 0; i < trail.length; i++ )
-  {
-    ctx.fillStyle = trail[i].color || 'lime';
-    ctx.fillRect(trail[i].x, trail[i].y, pw, ph);
-  }
-
-  trail.push({x: px, y: py, color: ctx.fillStyle});
-
-  // limiter
-  if( trail.length > tail )
-  {
-    trail.shift();
-  }
-
-  // eaten
-  if( trail.length > tail )
-  {
-    trail.shift();
-  }
-
-  // self collisions
-  if( trail.length >= tail && gs )
-  {
-    for( var i = trail.length - tailSafeZone; i >= 0; i-- )
-    {
-      if(
-        px < (trail[i].x + pw)
-        && px + pw > trail[i].x
-        && py < (trail[i].y + ph)
-        && py + ph > trail[i].y
-      )
-      {
-        // got collision
-        tail = 10; // cut the tail
-        speed = baseSpeed; // cut the speed (flash nomore lol xD)
-        if (score > hiscore){
-          hiscore = score;
-          H1hiscore.innerHTML = "Hiscore: " + hiscore;
-          localStorage.setItem('HiscoreSnake', hiscore);
-        }
-        score = 0;
-        H1score.innerHTML = "Score: 0";
-
-        for( var t = 0; t < trail.length; t++ )
-        {
-          // highlight lossed area
-          trail[t].color = 'red';
-
-          if( t >= trail.length - tail )
-            {break;}
-        }
-      }
-    }
-  }
-
-  // paint apples
-  for( var a = 0; a < apples.length; a++ )
-  {
-    ctx.fillStyle = apples[a].color;
-    ctx.fillRect(apples[a].x, apples[a].y, aw, ah);
-  }
-
-  // check for snake head collisions with apples
-  for( var a = 0; a < apples.length; a++ )
-  {
-    if(
-      px < (apples[a].x + pw)
-      && px + pw > apples[a].x
-      && py < (apples[a].y + ph)
-      && py + ph > apples[a].y
-    )
-    {
-      // got collision with apple
-      apples.splice(a, 1); // remove this apple from the apples list
-      tail += 10; // add tail length
-      speed += .1; // add some speed
-      score += 1;
-      H1score.innerHTML = "Score: " + score;
-      spawnApple(); // spawn another apple(-s)
-      break;
-    }
-  }
+	setInterval(loop, 1000/60);
 }
 
-// apples spawner
-function spawnApple()
-{
-  var
-    newApple = {
-      x: ~~(Math.random() * canv.width),
-      y: ~~(Math.random() * canv.height),
-      color: 'red'
-    };
+function loop(){
+	ctx.fillStyle = 'black';
+  	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // forbid to spawn near the edges
-  if(
-    (newApple.x < aw || newApple.x > canv.width - aw)
-    ||
-    (newApple.y < ah || newApple.y > canv.height - ah)
-  )
-  {
-    spawnApple();
-    return;
-  }
+	px += xv;
+	py += yv;
 
-  // check for collisions with tail element, so no apple will be spawned in it
-  for( var i = 0; i < tail.length; i++ )
-  {
-    if(
-      newApple.x < (trail[i].x + pw)
-      && newApple.x + aw > trail[i].x
-      && newApple.y < (trail[i].y + ph)
-      && newApple.y + ah > trail[i].y
-    )
-    {
-      // got collision
-      spawnApple();
-      return;
+	ctx.fillStyle = apple.color;
+    ctx.fillRect(apple.x, apple.y, aw, ah);
+
+	teleport();
+	paintSnake();
+	death();
+	checkCollApple();
+}
+
+function teleport(){
+	if( px > canvas.width ){
+		px = 0;
+	}
+
+	if( px + pw < 0 ){
+		px = canvas.width;
+	}
+
+	if( py + ph < 0 ){
+    	py = canvas.height;
     }
-  }
 
-  apples.push(newApple);
-
-  if( apples.length < 3 && ~~(Math.random() * 1000) > 700 )
-  {
-    // 30% chance to spawn one more apple
-    spawnApple();
-  }
+	if( py > canvas.height ){
+ 	 	py = 0;
+	}
 }
 
-// random color generator (for debugging purpose or just 4fun)
-function rc()
-{
-  return '#' + ((~~(Math.random() * 255)).toString(16)) + ((~~(Math.random() * 255)).toString(16)) + ((~~(Math.random() * 255)).toString(16));
+function death(){
+	if(trail.length >= tail && gs){
+    	for(var i = trail.length - tailSafeZone; i >= 0; i--){
+			if(px < (trail[i].x + pw) && px + pw > trail[i].x && py < (trail[i].y + ph) && py + ph > trail[i].y){
+				tail = 10;
+				speed = baseSpeed;
+				if (score > hiscore){
+					hiscore = score;
+					H1hiscore.innerHTML = "Hiscore: " + hiscore;
+					localStorage.setItem('HiscoreSnake', hiscore);
+				}
+				score = 0;
+				H1score.innerHTML = "Score: 0";
+
+				for( var t = 0; t < trail.length; t++ ){
+          			trail[t].color = 'red';
+					if(t >= trail.length - tail){
+						break;
+					}
+				}
+			}
+		}
+	}
 }
 
-// velocity changer (controls)
-function changeDirection(evt)
-{
-  if( !fkp && [37,38,39,40].indexOf(evt.keyCode) > -1 )
-  {
-    setTimeout(function() {gs = true;}, 1000);
-    fkp = true;
-    spawnApple();
-  }
+function paintSnake(){
+	ctx.fillStyle = 'lime';
+    for(var i = 0; i < trail.length; i++){
+	    ctx.fillStyle = trail[i].color || 'lime';
+	    ctx.fillRect(trail[i].x, trail[i].y, pw, ph);
+  	}
 
-  if( cooldown )
-    {return false;}
+  	trail.push({x: px, y: py, color: ctx.fillStyle});
 
-  /*
-    4 directional movement.
-   */
-  if( evt.keyCode == 37 && !(xv > 0) ) // left arrow
-    {xv = -speed; yv = 0;}
+  	if(trail.length > tail){
+		trail.shift();
+	};
 
-  if( evt.keyCode == 38 && !(yv > 0) ) // top arrow
-    {xv = 0; yv = -speed;}
+	if(trail.length > tail){
+		trail.shift();
+	}
+}
 
-  if( evt.keyCode == 39 && !(xv < 0) ) // right arrow
-    {xv = speed; yv = 0;}
+function changeDirection(e){
+	if(!fkp && [37,38,39,40].indexOf(e.keyCode) > -1){
+		setTimeout(()=>{gs = true;}, 1000);
+		fkp = true;
+		spawnApple();
+	}
 
-  if( evt.keyCode == 40 && !(yv < 0) ) // down arrow
-    {xv = 0; yv = speed;}
+	if (cooldown){
+		return false;
+	}
 
-  cooldown = true;
-  setTimeout(function() {cooldown = false;}, 100);
+	if(e.keyCode == 37 && !(xv > 0)){ // left arrow
+    	xv = -speed; yv = 0;
+    }
+
+	if(e.keyCode == 38 && !(yv > 0)){ // top arrow
+    	xv = 0; yv = -speed;
+    }
+
+	if(e.keyCode == 39 && !(xv < 0)){ // right arrow
+    	xv = speed; yv = 0;
+    }
+
+	if(e.keyCode == 40 && !(yv < 0)){ // down arrow
+    	xv = 0; yv = speed;
+    }
+
+	cooldown = true;
+  	setTimeout(()=>{cooldown = false;}, 100);
+}
+
+function spawnApple(){
+apple = {x: ~~(Math.random() * canvas.width),
+	y: ~~(Math.random() * canvas.height),
+	color: 'red'
+	};
+
+	if((apple.x < aw || apple.x > canvas.width - aw) || (apple.y < ah || apple.y > canvas.height - ah)){
+		spawnApple();
+		return;
+	}
+
+	for(var i = 0; i < tail.length; i++){
+		if(apple.x < (trail[i].x + pw) && apple.x + aw > trail[i].x && apple.y < (trail[i].y + ph) && apple.y + ah > trail[i].y){
+			spawnApple();
+			return;
+		}
+	}
+}
+
+function checkCollApple(){
+	if(px < (apple.x + pw) && px + pw > apple.x && py < (apple.y + ph) && py + ph > apple.y){
+		tail += 10;
+		speed += 0.1;
+		score += 1;
+		H1score.innerHTML = "Score: " + score;
+		spawnApple();
+	}
+}
+
+function checkWindow(){
+	canvas.width = innerWidth - 50;
+	canvas.height = innerHeight - 130;
+	px = ~~(canvas.width)/2;
+	py = ~~(canvas.height)/2;
 }
