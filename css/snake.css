@@ -76,3 +76,19 @@ header{
 	display: inline-block;
 	color: #ffffff;
 }
+
+#tapBut{
+	position: absolute;
+	bottom: 25px;
+	left: 25px;
+}
+
+.tapBut{
+	width: 50px;
+	height: 50px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-color: rgba(255, 255, 255, 0);
+	border: 1px solid rgba(255, 255, 255, 0);
+}
+

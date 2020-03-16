@@ -1,6 +1,8 @@
-var canvas = document.getElementById('canvas'),
-	ctx = canvas.getContext('2d'),
-	gs = fkp = false,
+const canvas = document.getElementById('canvas'),
+	ctx = canvas.getContext('2d');
+	dirBtns = document.getElementsByClassName('tapBut');
+
+var gs = fkp = false,
 	speed = baseSpeed = 3,
 	xv = yv = 0,
 	px = ~~(canvas.width)/2,
@@ -15,15 +17,19 @@ var canvas = document.getElementById('canvas'),
 	H1score = document.getElementById("Hscore"),
 	H1hiscore = document.getElementById("H1hiscore"),
 	hiscore = 0,
-	apple = {};
+	apple = {},
+	isPhone;
 
 window.onload = function(){
+	isPhone = confirm("Вы зашли на сайт с компьютера?");
+	dirBtns[1].style.display = dirBtns[3].style.display = dirBtns[5].style.display = dirBtns[7].style.display = (isPhone) ? "none" : "inline-block";
 	checkWindow();
 	if (localStorage.getItem('HiscoreSnake') != null){
 	    hiscore = localStorage.getItem('HiscoreSnake');
 	};
 	H1hiscore.innerHTML = "Hiscore: " + hiscore;
 	H1score.innerHTML = "Score: 0";
+
 	document.addEventListener('keydown', changeDirection);
 
 	setInterval(loop, 1000/60);
@@ -117,20 +123,24 @@ function changeDirection(e){
 		return false;
 	}
 
-	if(e.keyCode == 37 && !(xv > 0)){ // left arrow
-    	xv = -speed; yv = 0;
+	if(e.keyCode == 37 && !(xv > 0)){ // left
+    	xv = -speed;
+    	yv = 0;
     }
 
-	if(e.keyCode == 38 && !(yv > 0)){ // top arrow
-    	xv = 0; yv = -speed;
+	if(e.keyCode == 38 && !(yv > 0)){ // top
+    	xv = 0;
+    	yv = -speed;
     }
 
-	if(e.keyCode == 39 && !(xv < 0)){ // right arrow
-    	xv = speed; yv = 0;
+	if(e.keyCode == 39 && !(xv < 0)){ // right
+    	xv = speed;
+    	yv = 0;
     }
 
-	if(e.keyCode == 40 && !(yv < 0)){ // down arrow
-    	xv = 0; yv = speed;
+	if(e.keyCode == 40 && !(yv < 0)){ // down
+    	xv = 0;
+    	yv = speed;
     }
 
 	cooldown = true;
@@ -171,4 +181,38 @@ function checkWindow(){
 	canvas.height = innerHeight - 130;
 	px = ~~(canvas.width)/2;
 	py = ~~(canvas.height)/2;
+}
+
+function changeDirectionBut(e){
+	if(!fkp){
+		setTimeout(()=>{gs = true;}, 1000);
+		fkp = true;
+		spawnApple();
+	}
+
+	if (cooldown){
+		return false;
+	}
+
+	if(e.dataset.direction == "left" && !(xv > 0)){
+    	xv = -speed;
+    	yv = 0;
+    }
+
+	if(e.dataset.direction == "top" && !(yv > 0)){
+    	xv = 0; yv = -speed;
+    }
+
+	if(e.dataset.direction == "right" && !(xv < 0)){ 
+    	xv = speed;
+    	yv = 0;
+    }
+
+	if(e.dataset.direction == "down" && !(yv < 0)){
+    	xv = 0;
+    	yv = speed;
+    }
+
+	cooldown = true;
+  	setTimeout(()=>{cooldown = false;}, 100);
 }

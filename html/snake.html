@@ -26,6 +26,34 @@
 
 	<canvas id="canvas" width="1280px" height="500px"></canvas>
 
+	<!-- стрелки -->
+	<table id = "tapBut">
+		<tr>
+			<td><button style = "width: 15px; height: 15px;" class = "tapBut"></button></td>
+			<td>
+				<button data-direction = "top" onclick = "changeDirectionBut(this)" style = "background-image: url(../media/up.png);" id = "up" class = "tapBut"></button>
+			</td>
+			<td><button style = "width: 15px; height: 15px;" class = "tapBut"></button></td>
+		</tr>
+		<tr>
+			<td>
+				<button data-direction = "left" onclick = "changeDirectionBut(this)" style = "background-image: url(../media/left.png);" id = "left" class = "tapBut"></button>
+			</td>
+			<td><button style = "width: 15px; height: 15px;" class = "tapBut"></button></td>
+			<td>
+				<button data-direction = "right" onclick = "changeDirectionBut(this)" style = "background-image: url(../media/right.png);" id = "right" class = "tapBut"></button>
+			</td>
+		</tr>
+		<tr>
+			<td><button style = "width: 15px; height: 15px;" class = "tapBut"></button></td>
+			<td>
+				<button data-direction = "down" onclick = "changeDirectionBut(this)" style = "background-image: url(../media/dow.png);" id = "down" class = "tapBut"></button>
+			</td>
+			<td><button style = "width: 15px; height: 15px;" class = "tapBut"></button></td>
+		</tr>
+	</table>
+	<!-- стрелки -->
+
 	<script src="../js/snake.js"></script>
 </body>
 </html>
