@@ -79,13 +79,13 @@ header{
 
 #tapBut{
 	position: absolute;
-	bottom: 25px;
-	left: 25px;
+	bottom: 15px;
+	left: 15px;
 }
 
 .tapBut{
-	width: 50px;
-	height: 50px;
+	width: 70px;
+	height: 70px;
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-color: rgba(255, 255, 255, 0);
