@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<title>Snake</title>
+	<link rel="stylesheet" type="text/css" href="../css/snake.css">
+</head>
+<body>
+
+	<header>
+		<div id = "logo">
+			<a href = "../main.html"><img src = "../media/favicon.ico"></a>
+			<div id = "logoText">
+				<h1><a href = "../main.html">CodJi game</a></h1>
+				<h2>ANDROID DEVELOPER</h2>
+			</div>
+			
+		</div>
+		<div id = "score">
+			<h1 id = "Hscore">Score:</h1>
+		</div>
+		<div id = "hiscore">
+			<h1 id = "H1hiscore">Hiscore:</h1>
+		</div>
+	</header>
+
+	<canvas id="canvas" width="1280px" height="500px"></canvas>
+
+	<!-- стрелки -->
+	<table id = "tapBut">
+		<tr>
+			<td><button style = "width: 15px; height: 15px;" class = "tapBut"></button></td>
+			<td>
+				<button data-direction = "top" onclick = "changeDirectionBut(this)" style = "background-image: url(../media/up.png);" id = "up" class = "tapBut"></button>
+			</td>
+			<td><button style = "width: 15px; height: 15px;" class = "tapBut"></button></td>
+		</tr>
+		<tr>
+			<td>
+				<button data-direction = "left" onclick = "changeDirectionBut(this)" style = "background-image: url(../media/left.png);" id = "left" class = "tapBut"></button>
+			</td>
+			<td><button style = "width: 15px; height: 15px;" class = "tapBut"></button></td>
+			<td>
+				<button data-direction = "right" onclick = "changeDirectionBut(this)" style = "background-image: url(../media/right.png);" id = "right" class = "tapBut"></button>
+			</td>
+		</tr>
+		<tr>
+			<td><button style = "width: 15px; height: 15px;" class = "tapBut"></button></td>
+			<td>
+				<button data-direction = "down" onclick = "changeDirectionBut(this)" style = "background-image: url(../media/dow.png);" id = "down" class = "tapBut"></button>
+			</td>
+			<td><button style = "width: 15px; height: 15px;" class = "tapBut"></button></td>
+		</tr>
+	</table>
+	<!-- стрелки -->
+
+	<script src="../js/snake.js"></script>
+</body>
+</html>
