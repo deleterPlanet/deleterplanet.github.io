@@ -190,10 +190,6 @@ function changeDirectionBut(e){
 		spawnApple();
 	}
 
-	if (cooldown){
-		return false;
-	}
-
 	if(e.dataset.direction == "left" && !(xv > 0)){
     	xv = -speed;
     	yv = 0;
@@ -212,7 +208,4 @@ function changeDirectionBut(e){
     	xv = 0;
     	yv = speed;
     }
-
-	cooldown = true;
-  	setTimeout(()=>{cooldown = false;}, 100);
 }
