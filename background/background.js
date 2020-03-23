@@ -2,13 +2,14 @@ const canv = document.getElementById('canv'),
 	ctx = canv.getContext('2d'),
 	maxSpeed = 2,
 	maxLineWidth = 0.5,
-	maxLenLine = 100;
+	maxLenLine = 100,
+	pointsLen = prompt("сколько частиц вы хотите?");
 
 var cWidth = canv.width = innerWidth,
 	cHeight = canv.height = innerHeight,
 	points = {};
 
-for (var i = 0; i < 100; i++){
+for (var i = 0; i < pointsLen; i++){
 	points[i] = {
 		x : Math.random()*cWidth,
 		y : Math.random()*cHeight,
@@ -29,7 +30,7 @@ function loop(){
 	ctx.fillStyle = '#14171a';
   	ctx.fillRect(0, 0, cWidth, cHeight);
   	ctx.fillStyle = '#ffffff';
-  	for (var i = 0; i < 100; i++){
+  	for (var i = 0; i < pointsLen; i++){
   		ctx.beginPath();
   		ctx.arc(points[i].x, points[i].y, 2, 0, Math.PI*2, true);
   		ctx.fill();
@@ -50,7 +51,7 @@ function loop(){
   		};
 
 		ctx.strokeStyle = "#ffffff";
-  		for (var j = i; j < 100; j++){
+  		for (var j = i; j < pointsLen; j++){
   			dist = getDistance({x : points[i].x, y : points[i].y}, {x : points[j].x, y : points[j].y});
   			if (dist <= maxLenLine){
   				ctx.lineWidth = (maxLenLine/dist)*maxLineWidth;
