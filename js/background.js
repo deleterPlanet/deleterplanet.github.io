@@ -27,6 +27,9 @@ for (var i = 0; i < pointsLen; i++){
 timer = setInterval(loop, 1000/60);
 
 function loop(){
+  cWidth = canv.width = innerWidth;
+  cHeight = canv.height = innerHeight;
+  
 	ctx.fillStyle = '#14171a';
   	ctx.fillRect(0, 0, cWidth, cHeight);
   	ctx.fillStyle = '#ffffff';
