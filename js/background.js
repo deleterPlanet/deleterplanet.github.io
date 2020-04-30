@@ -44,13 +44,13 @@ function loop(){
   			points[i].x = cWidth;
   		};
   		if (points[i].x > cWidth){
-  			points[i].x = 0
+  			points[i].x = 0;
   		};
   		if (points[i].y < 0){
   			points[i].y = cHeight
   		};
   		if (points[i].y > cHeight){
-  			points[i].y = 0
+  			points[i].y = 0;
   		};
 
 		ctx.strokeStyle = "#ffffff";

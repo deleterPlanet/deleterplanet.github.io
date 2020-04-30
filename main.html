@@ -10,9 +10,9 @@
 	<!-- Шапка -->
 	<header id = "header">
 		<div id = "logo">
-			<a href = "#"><img src = "media/favicon.ico"></a>
+			<a href = "main.html"><img src = "media/favicon.ico"></a>
 			<div id = "logoText">
-				<h1><a href = "#">CodJi game</a></h1>
+				<h1><a href = "main.html">CodJi apps</a></h1>
 				<h2>ANDROID DEVELOPER</h2>
 			</div>
 			
@@ -46,8 +46,8 @@
 				ANDROID
 			</a>
 			<ul>
-				<li><a class = "dropdown-content" href = "#">ПРОЕКТЫ</a></li>
-    			<li><a class = "dropdown-content" href = "#">ССЫЛКИ</a></li>
+				<li><a id="projects" class = "dropdown-content" href = "#">ПРОЕКТЫ</a></li>
+    			<li><a id="tools" class = "dropdown-content" href = "#">ИНСТРУМЕНТЫ</a></li>
 			</ul>
 		</li>
 		<li class = "dropdown">
@@ -59,17 +59,19 @@
 			</a>
 			<ul>
 				<li><a class = "dropdown-content" href="html/snake.html">SNAKE</a></li>
+				<li><a class = "dropdown-content" href="html/ticTacToe.html">КРЕСТИКИ НОЛИКИ</a></li>
 			</ul>
 		</li>
 		<li class = "dropdown">
 			<a class = "drop">
-				<span class = "icon-fg" style = "background-image: url(media/Html5.png);">
-					<span class = "icon-bg" style = "background-image: url(media/Html5.png);"></span>
+				<span class = "icon-fg" style = "background-image: url(media/support.png);">
+					<span class = "icon-bg" style = "background-image: url(media/support.png);"></span>
 				</span>
-				<span style = "color: #17b517">WEB</span>РАЗРАБОТКА
+				ПОМОЩЬ РАЗРАБОТЧИКУ
 			</a>
 			<ul>
-				<li><a class = "dropdown-content" href="#">PSD МАКЕТЫ</a></li>
+				<li><a id="donations" class = "dropdown-content" href="#">ДОНАТЫ</a></li>
+				<li><a class = "dropdown-content" href="mailto:yakushevi4.a@gmail.com?subject='Письмо разработчику'">НАПИСАТЬ ОБ ОШИБКЕ</a></li>
 			</ul>
 		</li>
 	</ul>
@@ -78,6 +80,7 @@
 
 	<script src = "js/main.js"></script>
 	<script src = "js/background.js"></script>
+	<script src="js/setContent.js"></script>
 </body>
 </html>
 
