@@ -22,14 +22,6 @@ body{
 	color: #ffffff;
 }
 
-#autor{
-	color: #404a54;
-	position: fixed;
-	bottom: 10px;
-	left: 10px;
-	margin: 0;
-}
-
 a{
 	text-decoration: none;
 	color: #ffffff;
@@ -50,6 +42,7 @@ header{
 #logo{
 	margin-left: 30px;
 	float: left;
+	padding: 5px 0;
 }
 
 #logoText a{
